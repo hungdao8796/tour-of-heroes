@@ -5,31 +5,23 @@
   padding: 0;
   width: 15em;
 
-  li {
-    cursor: pointer;
-    position: relative;
-    left: 0;
+  li a {
+    color: #333;
+    text-decoration: none;
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0;
     height: 1.6em;
     border-radius: 4px;
+    display: block;
+    width: 100%;
     &:hover {
       color: #2c3a41;
       background-color: #e6e6e6;
-      left: .1em;
     }
-    &.selected {
-      background-color: black;
-      color: white;
-      &:hover {
-        background-color: #505050;
-        color: white;
-      }
-      &:active {
-        background-color: black;
-        color: white;
-      }
+    &:active {
+      background-color: #525252;
+      color: #fafafa;
     }
   }
 
@@ -44,6 +36,8 @@
     left: -1px;
     top: -4px;
     height: 1.8em;
+    min-width: 16px;
+    text-align: right;
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
