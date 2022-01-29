@@ -1,26 +1,32 @@
 import {Injectable} from '@angular/core';
-import {Hero, mockHeroes} from "../../models/hero";
+import {Hero} from "../../models/hero";
 import {MessageService} from "../message/message.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {HERO_API_BASE_URL} from "../../constants/hero";
+
+interface HeroResponse {
+  data: {
+    [key: string]: Hero
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
+  constructor(
+    private messageService: MessageService,
+    private http: HttpClient
+  ) { }
 
-  constructor(private messageService: MessageService) { }
-
-  getHeroes(): Observable<Hero[]> {
-    const heroes = of(mockHeroes);
-    this.messageService.add('hero service: fetched heroes');
-    return heroes;
+  getHeroes(): Observable<HeroResponse> {
+    return this.http
+      .get<HeroResponse>(`${HERO_API_BASE_URL}/champion.json`)
   }
 
-  getHero(id: number): Observable<Hero> {
-    // For now, assume that a hero with the specified `id` always exists.
-    // Error handling will be added in the next step of the tutorial.
-    const hero = mockHeroes.find(h => h.id === id)!;
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
-    return of(hero);
+  getHero(id: string): Observable<HeroResponse> {
+    return this.http
+      .get<HeroResponse>(`${HERO_API_BASE_URL}/champion/${id}.json`)
   }
 }

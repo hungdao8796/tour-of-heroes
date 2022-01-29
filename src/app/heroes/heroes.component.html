@@ -4,7 +4,7 @@
     *ngFor="let hero of heroes"
   >
     <a routerLink="/heroes/{{ hero.id }}">
-      <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+      <span class="badge">{{ hero.key }}</span> {{ hero.name }}
     </a>
   </li>
 </ul>

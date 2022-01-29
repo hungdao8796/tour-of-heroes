@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {mockHeroes} from "../../models/hero";
 import {HeroService} from "../../service/hero/hero.service";
+import {Hero} from "../../models/hero";
 
 @Component({
   selector: 'app-heroes',
@@ -8,7 +8,7 @@ import {HeroService} from "../../service/hero/hero.service";
   styleUrls: ['./heroes.component.scss']
 })
 export class HeroesComponent implements OnInit {
-  heroes = mockHeroes;
+  heroes: Hero[] = [];
   constructor(
     private heroService: HeroService
   ) { }
@@ -17,6 +17,9 @@ export class HeroesComponent implements OnInit {
     this.getHeroes();
   }
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+    this.heroService.getHeroes().subscribe(response => {
+      const heroes = response?.data || [];
+      this.heroes = Object.keys(heroes).map(heroName => heroes[heroName]);
+    });
   }
 }
